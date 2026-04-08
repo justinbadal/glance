@@ -12,16 +12,16 @@ pages:
                 links:
                   - title: RVUOS
                     url: https://www.rvuos.io
-                    icon: si:globe
+                    icon: mdi:web
                   - title: Servrar Bot
                     url: https://bot.servrar.net
-                    icon: si:robot
+                    icon: mdi:robot-outline
                   - title: Email Tasks
                     url: https://tasks.servrar.net
-                    icon: si:gmail
+                    icon: mdi:email-check-outline
                   - title: Tududi
                     url: https://tudu.servrar.net
-                    icon: si:todoist
+                    icon: mdi:checkbox-marked-outline
 
           - type: monitor
             cache: 1m
@@ -58,7 +58,7 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: 97703
+            location: Bend, Oregon, United States
             units: imperial
             hour-format: 12h
 
