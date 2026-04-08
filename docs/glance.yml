@@ -41,6 +41,10 @@ pages:
 
       - size: full
         widgets:
+          - type: iframe
+            source: https://bot.servrar.net
+            height: 500
+
           - type: group
             widgets:
               - type: hacker-news
