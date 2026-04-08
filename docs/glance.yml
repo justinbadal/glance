@@ -10,16 +10,16 @@ pages:
             groups:
               - title: Self-Hosted
                 links:
-                  - title: RVUOS
+                  - title: rvuOS
                     url: https://www.rvuos.io
                     icon: mdi:web
-                  - title: Servrar Bot
+                  - title: LettaBot
                     url: https://bot.servrar.net
                     icon: mdi:robot-outline
-                  - title: Email Tasks
+                  - title: email_tasks
                     url: https://tasks.servrar.net
                     icon: mdi:email-check-outline
-                  - title: Tududi
+                  - title: Tudu
                     url: https://tudu.servrar.net
                     icon: mdi:checkbox-marked-outline
 
@@ -27,13 +27,13 @@ pages:
             cache: 1m
             title: Service Status
             sites:
-              - title: RVUOS
+              - title: rvuOS
                 url: https://www.rvuos.io
-              - title: Servrar Bot
+              - title: LettaBot
                 url: https://bot.servrar.net
-              - title: Email Tasks
+              - title: email_tasks
                 url: https://tasks.servrar.net
-              - title: Tududi
+              - title: Tudu
                 url: https://tudu.servrar.net
 
           - type: calendar
