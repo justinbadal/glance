@@ -58,7 +58,7 @@ pages:
       - size: small
         widgets:
           - type: weather
-            location: Los Angeles, California
+            location: 97703
             units: imperial
             hour-format: 12h
 
