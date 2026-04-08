@@ -1,3 +1,10 @@
+theme:
+  background-color: 240 8 3
+  primary-color: 183 100 50
+  positive-color: 145 65 52
+  negative-color: 0 72 58
+  contrast-multiplier: 1.2
+
 pages:
   - name: Home
     columns:
