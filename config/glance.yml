@@ -26,9 +26,12 @@ pages:
                   - title: email_tasks
                     url: https://tasks.servrar.net
                     icon: mdi:email-check-outline
-                  - title: Tudu
-                    url: https://tudu.servrar.net
+                  - title: Jotty
+                    url: https://jotty.servrar.net
                     icon: mdi:checkbox-marked-outline
+                  - title: Typebot
+                    url: https://type.bot.servrar.net
+                    icon: mdi:chat-outline
 
           - type: monitor
             cache: 1m
@@ -40,14 +43,21 @@ pages:
                 url: https://bot.servrar.net
               - title: email_tasks
                 url: https://tasks.servrar.net
-              - title: Tudu
-                url: https://tudu.servrar.net
+              - title: Jotty
+                url: https://jotty.servrar.net
+              - title: Typebot
+                url: https://type.bot.servrar.net
 
           - type: calendar
             first-day-of-week: sunday
 
       - size: full
         widgets:
+          - type: iframe
+            title: Email Review
+            source: https://tasks.servrar.net/embed
+            height: 600
+
           - type: group
             widgets:
               - type: hacker-news
@@ -61,6 +71,67 @@ pages:
               - type: reddit
                 subreddit: technology
                 show-thumbnails: true
+
+          - type: custom-api
+            frameless: true
+            cache: 1h
+            template: |+
+              <style>
+                .letta-fab{position:fixed;bottom:24px;right:24px;z-index:9999;font-family:system-ui,sans-serif;touch-action:none;user-select:none}
+                .letta-fab .fab-btn{width:56px;height:56px;border-radius:50%;background:hsl(183 100% 50%);border:none;cursor:grab;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.4);transition:transform .2s,box-shadow .2s}
+                .letta-fab .fab-btn:hover{transform:scale(1.1)}
+                .letta-fab .fab-btn.dragging{cursor:grabbing;transform:scale(1.15);box-shadow:0 8px 24px rgba(0,0,0,.6)}
+                .letta-fab .fab-btn svg{width:28px;height:28px;fill:#0d0f14;pointer-events:none}
+                .letta-fab .chat-panel{display:none;position:absolute;bottom:68px;right:0;width:400px;height:550px;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,.6);border:1px solid hsl(240 8% 15%)}
+                .letta-fab .chat-panel.open{display:block}
+                .letta-fab .chat-panel iframe{width:100%;height:100%;border:none}
+              </style>
+              <div class="letta-fab" id="letta-fab">
+                <div class="chat-panel" id="letta-panel">
+                  <iframe src="https://typeviewer.bot.servrar.net/letta-chat" loading="lazy"></iframe>
+                </div>
+                <button class="fab-btn" id="fab-btn" title="Letta Chat (drag to move)">
+                  <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                </button>
+              </div>
+              <script>
+              (function(){
+                var fab=document.getElementById('letta-fab'),btn=document.getElementById('fab-btn'),panel=document.getElementById('letta-panel');
+                var dragging=false,startX,startY,origX,origY,moved=false;
+                function pos(e){return e.touches?{x:e.touches[0].clientX,y:e.touches[0].clientY}:{x:e.clientX,y:e.clientY}}
+                function onDown(e){
+                  var p=pos(e);startX=p.x;startY=p.y;
+                  var r=fab.getBoundingClientRect();origX=r.left;origY=r.top;
+                  dragging=true;moved=false;btn.classList.add('dragging');
+                  e.preventDefault();
+                }
+                function onMove(e){
+                  if(!dragging)return;
+                  var p=pos(e),dx=p.x-startX,dy=p.y-startY;
+                  if(Math.abs(dx)>4||Math.abs(dy)>4)moved=true;
+                  if(!moved)return;
+                  var nx=origX+dx,ny=origY+dy;
+                  nx=Math.max(0,Math.min(window.innerWidth-56,nx));
+                  ny=Math.max(0,Math.min(window.innerHeight-56,ny));
+                  fab.style.left=nx+'px';fab.style.top=ny+'px';
+                  fab.style.right='auto';fab.style.bottom='auto';
+                  var panelRight=nx>window.innerWidth/2;
+                  panel.style.right=panelRight?'0':'auto';
+                  panel.style.left=panelRight?'auto':'0';
+                }
+                function onUp(){
+                  if(!dragging)return;
+                  dragging=false;btn.classList.remove('dragging');
+                  if(!moved)panel.classList.toggle('open');
+                }
+                btn.addEventListener('mousedown',onDown);
+                btn.addEventListener('touchstart',onDown,{passive:false});
+                document.addEventListener('mousemove',onMove);
+                document.addEventListener('touchmove',onMove,{passive:false});
+                document.addEventListener('mouseup',onUp);
+                document.addEventListener('touchend',onUp);
+              })();
+              </script>
 
       - size: small
         widgets:
